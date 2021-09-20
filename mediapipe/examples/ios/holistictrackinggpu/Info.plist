@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
   <key>CameraPosition</key>
-  <string>back</string>
+  <string>front</string>
   <key>GraphOutputStream</key>
   <string>output_video</string>
   <key>GraphInputStream</key>
