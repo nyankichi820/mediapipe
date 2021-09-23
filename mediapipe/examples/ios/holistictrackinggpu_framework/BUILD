@@ -27,12 +27,12 @@ licenses(["notice"])
 MIN_IOS_VERSION = "13.0"
 
 ios_framework(
-    name = "HolisticTrackerFramework",
+    name = "HolisticTracker",
     hdrs = [
         "HolisticTracker.h",
     ],
     infoplists = ["Info.plist"],
-    bundle_id = "jp.wchr.HolisticTrackerFramework",
+    bundle_id = "jp.wchr.HolisticTracker",
     families = ["iphone", "ipad"],
     minimum_os_version = MIN_IOS_VERSION,
     deps = [

@@ -1,17 +1,17 @@
 #import <Foundation/Foundation.h>
 #import <CoreVideo/CoreVideo.h>
-
+#import <CoreMedia/CoreMedia.h>
 @class Landmark;
 
 @protocol HolisticTrackerDelegate <NSObject>
 @optional
-- (void)didReceived: (NSArray<Landmark *> *)landmarks;
+- (void)didReceivedLandmarks:(NSString*)outputType landmark: (NSArray<Landmark *> *)landmarks;
 @end
 
 @interface HolisticTracker : NSObject
 - (instancetype)init;
 - (void)startGraph;
-- (void)processVideoFrame:(CVPixelBufferRef)imageBuffer;
+- (void)processVideoFrame:(CVPixelBufferRef)imageBuffer timestamp:(CMTime)timestamp;
 @property (weak, nonatomic) id <HolisticTrackerDelegate> delegate;
 @end
 

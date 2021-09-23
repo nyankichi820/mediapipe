@@ -49,6 +49,7 @@ static const int kNumHands = 2;
     const auto& multiHandLandmarks = packet.Get<std::vector<::mediapipe::NormalizedLandmarkList>>();
     NSLog(@"[TS:%lld] Number of hand instances with landmarks: %lu", packet.Timestamp().Value(),
           multiHandLandmarks.size());
+      
     for (int handIndex = 0; handIndex < multiHandLandmarks.size(); ++handIndex) {
       const auto& landmarks = multiHandLandmarks[handIndex];
       NSLog(@"\tNumber of landmarks for hand[%d]: %d", handIndex, landmarks.landmark_size());
