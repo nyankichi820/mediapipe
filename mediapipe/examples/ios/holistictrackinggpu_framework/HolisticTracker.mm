@@ -125,7 +125,7 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
        didOutputPacket:(const ::mediapipe::Packet&)packet
             fromStream:(const std::string&)streamName {
     
-    NSLog(@"stream %s",streamName.c_str());
+   // NSLog(@"stream %s",streamName.c_str());
   
     if (streamName == kPoseLandmarkOutputStream
         || streamName == kFaceLandmarkOutputStream
@@ -135,13 +135,13 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
         if (packet.IsEmpty()) { return; }
         
         const auto& landmarks = packet.Get<::mediapipe::NormalizedLandmarkList>();
-        NSLog(@"[TS:%lld] %s Number of pose landmarks: %d", packet.Timestamp().Value(),streamName.c_str(),
-              landmarks.landmark_size());
+       // NSLog(@"[TS:%lld] %s Number of pose landmarks: %d", packet.Timestamp().Value(),streamName.c_str(),
+        //      landmarks.landmark_size());
         NSMutableArray *results = [[NSMutableArray alloc] init];
         
         for (int i = 0; i < landmarks.landmark_size(); ++i) {
-          NSLog(@"\tLandmark[%d]: (%f, %f, %f)", i, landmarks.landmark(i).x(),
-                landmarks.landmark(i).y(), landmarks.landmark(i).z());
+        //  NSLog(@"\tLandmark[%d]: (%f, %f, %f)", i, landmarks.landmark(i).x(),
+        //        landmarks.landmark(i).y(), landmarks.landmark(i).z());
             Landmark *l = [[Landmark alloc] initWithX: landmarks.landmark(i).x()
                                                     y: landmarks.landmark(i).y() z: landmarks.landmark(i).z()];
             [results addObject:l];
