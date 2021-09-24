@@ -6,6 +6,8 @@
 @protocol HolisticTrackerDelegate <NSObject>
 @optional
 - (void)didReceivedLandmarks:(NSString*)outputType landmark: (NSArray<Landmark *> *)landmarks;
+- (void)didReceiveRenderedVideoFrame:(CVPixelBufferRef)imageBuffer ;
+
 @end
 
 @interface HolisticTracker : NSObject

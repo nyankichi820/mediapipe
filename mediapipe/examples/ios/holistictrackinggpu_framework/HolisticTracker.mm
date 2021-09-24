@@ -8,6 +8,8 @@
 
 static NSString* const kGraphName = @"holistic_tracking_gpu";
 static const char* kInputStream = "input_video";
+static const char* kOutputStream = "output_video";
+
 static const char* kPoseLandmarkOutputStream = "pose_landmarks";
 static const char* kPoseRoiOutputStream = "pose_roi";
 static const char* kPoseDetectionOutputStream = "pose_detection";
@@ -72,7 +74,8 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
     [newGraph addFrameOutputStream:kRightHandLandmarkOutputStream outputPacketType:MPPPacketTypeRaw];
     [newGraph addFrameOutputStream:kPoseDetectionOutputStream outputPacketType:MPPPacketTypeRaw];
     [newGraph addFrameOutputStream:kPoseRoiOutputStream outputPacketType:MPPPacketTypeRaw];
- 
+    [newGraph addFrameOutputStream:kOutputStream outputPacketType:MPPPacketTypePixelBuffer];
+  
     return newGraph;
 }
 
@@ -111,13 +114,13 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 - (void)mediapipeGraph:(MPPGraph*)graph
   didOutputPixelBuffer:(CVPixelBufferRef)pixelBuffer
             fromStream:(const std::string&)streamName {
-    //  if (streamName == kOutputStream) {
-    //    // Display the captured image on the screen.
-    //    CVPixelBufferRetain(pixelBuffer);
-    //    dispatch_async(dispatch_get_main_queue(), ^{
-    //      CVPixelBufferRelease(pixelBuffer);
-    //    });
-    //  }
+      if (streamName == kOutputStream) {
+        CVPixelBufferRetain(pixelBuffer);
+        [[ self delegate] didReceiveRenderedVideoFrame:pixelBuffer];
+        dispatch_async(dispatch_get_main_queue(), ^{
+          CVPixelBufferRelease(pixelBuffer);
+        });
+      }
 }
 
 // Receives a raw packet from the MediaPipe graph. Invoked on a MediaPipe worker thread.
